@@ -1,6 +1,7 @@
 
 const form = document.getElementById("form");
 const username = document.getElementById("username")
+const cpf = document.getElementById("cpf")
 const email = document.getElementById("email")
 const password = document.getElementById("password")
 const passwordConfirmation = document.getElementById("password-confirmation");
@@ -12,10 +13,22 @@ form.addEventListener("submit", (event) => {
   checkForm();
 })
 
+passwordConfirmation.addEventListener("blur", () => {
+  checkInputPasswordConfirmation();
+})
+
+password.addEventListener("blur", () => {
+  checkInputPassword();
+})
+
+
 email.addEventListener("blur", () => {
   checkInputEmail();
 })
 
+cpf.addEventListener("blur", () => {
+  checkInputCpf();
+})
 
 username.addEventListener("blur", () => {
   checkInputUsername();
@@ -34,7 +47,22 @@ function checkInputUsername(){
     formItem.className = "form-content"
   }
 
+  
 }
+
+function checkInputCpf(){
+  const cpfValue = cpf.value;
+
+  if(cpfValue === ""){
+    errorInput(cpf, "Preencha um cpf")
+  }else if(cpfValue.length < 11){
+    errorInput(cpf, "O cpf deve 11 caracteres.")
+  }else{
+    const formItem = cpf.parentElement;
+    formItem.className = "form-content"
+  }
+}
+
 
 function checkInputEmail(){
   const emailValue = email.value;
@@ -85,6 +113,7 @@ function checkInputPasswordConfirmation(){
 
 function checkForm(){
   checkInputUsername();
+  checkInputCpf();
   checkInputEmail();
   checkInputPassword();
   checkInputPasswordConfirmation();
